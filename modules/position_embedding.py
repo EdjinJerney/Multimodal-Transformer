@@ -72,8 +72,15 @@ class SinusoidalPositionalEmbedding(nn.Module):
                 self.padding_idx,
             )
         self.weights[device] = self.weights[device].type_as(self._float_tensor)
-        positions = make_positions(input, self.padding_idx, self.left_pad)
-        return self.weights[device].index_select(0, positions.view(-1)).view(bsz, seq_len, -1).detach()
+        positions = make_positions(input, self.padding_idx, self.left_pad).contiguous()
+        
+        # # Debug: Ensure shapes are correct
+        # print(f"positions shape: {positions.shape}")
+        # print(f"self.weights[device] shape: {self.weights[device].shape}")
+        
+        weight_tensor = self.weights[device].index_select(0, positions.view(-1)).contiguous()
+        return weight_tensor.reshape(bsz, seq_len, -1).detach()
+
 
     def max_positions(self):
         """Maximum number of supported positions."""

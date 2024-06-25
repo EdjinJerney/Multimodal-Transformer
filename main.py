@@ -21,7 +21,7 @@ parser.add_argument('--lonly', action='store_true',
                     help='use the crossmodal fusion into l (default: False)')
 parser.add_argument('--aligned', action='store_true',
                     help='consider aligned experiment or not (default: False)')
-parser.add_argument('--dataset', type=str, default='mosei_senti',
+parser.add_argument('--dataset', type=str, default='mosi',
                     help='dataset to use (default: mosei_senti)')
 parser.add_argument('--data_path', type=str, default='data',
                     help='path for storing the dataset')
@@ -59,7 +59,7 @@ parser.add_argument('--lr', type=float, default=1e-3,
                     help='initial learning rate (default: 1e-3)')
 parser.add_argument('--optim', type=str, default='Adam',
                     help='optimizer to use (default: Adam)')
-parser.add_argument('--num_epochs', type=int, default=40,
+parser.add_argument('--num_epochs', type=int, default=1,
                     help='number of epochs (default: 40)')
 parser.add_argument('--when', type=int, default=20,
                     help='when to decay learning rate (default: 20)')
@@ -71,7 +71,7 @@ parser.add_argument('--log_interval', type=int, default=30,
                     help='frequency of result logging (default: 30)')
 parser.add_argument('--seed', type=int, default=1111,
                     help='random seed')
-parser.add_argument('--no_cuda', action='store_true',
+parser.add_argument('--no_cuda', action='store_false',
                     help='do not use cuda')
 parser.add_argument('--name', type=str, default='mult',
                     help='name of the trial (default: "mult")')
@@ -86,7 +86,7 @@ if valid_partial_mode == 0:
 elif valid_partial_mode != 1:
     raise ValueError("You can only choose one of {l/v/a}only.")
 
-use_cuda = False
+use_cuda = True
 
 output_dim_dict = {
     'mosi': 1,
