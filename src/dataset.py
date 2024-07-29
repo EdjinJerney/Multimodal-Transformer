@@ -17,7 +17,7 @@ else:
 
 
 class Multimodal_Datasets(Dataset):
-    def __init__(self, dataset_path, data='mosei_senti', split_type='train', if_align=False):
+    def __init__(self, dataset_path, data='mosi', split_type='train', if_align=False):
         super(Multimodal_Datasets, self).__init__()
         dataset_path = os.path.join(dataset_path, data+'_data.pkl' if if_align else data+'_data_noalign.pkl' )
         dataset = pickle.load(open(dataset_path, 'rb'))
